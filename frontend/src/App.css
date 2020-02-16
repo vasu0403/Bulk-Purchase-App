@@ -1,0 +1,24 @@
+.outerGrid {
+  display: grid;
+  grid-template-areas: "ar1 ar2";
+  grid-template-columns: 1fr 4fr;
+}
+.sideNav {
+  grid-area: ar1;
+  height: 100vh;
+  width: 100%;
+  background-color: #5252d4;
+  text-align: center;
+  
+}
+.sideNav-links {
+  margin-top: 39vh;
+  color: white;
+  font-size: 25px;
+}
+.login {
+  grid-area: ar2;
+}
+a:link {
+  text-decoration: none;
+}
