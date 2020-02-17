@@ -12,7 +12,7 @@ class Vendor extends Component {
         super()
         this.state = {
             loading: true, 
-            emial: ''
+            email: ''
         }
     }
     componentDidMount() {
@@ -62,7 +62,6 @@ class Vendor extends Component {
                             <Route path = '/vendor/dispatched'>
                                 dispatched
                             </Route>
-                            {/* <Route exact path = '/vendor/' component = {NewProduct} /> */}
                             <Route exact path = '/vendor/'
                             render={() => <NewProduct vendorEmail={this.state.email} />}
                             />

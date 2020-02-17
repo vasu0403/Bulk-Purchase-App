@@ -36,27 +36,17 @@ class VendorNavbar extends Component{
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" style = {{fontSize: '15px', marginLeft: '250px'}}>
-            <Link to='/vendor/newProduct' style={{color: 'white', textDecoration: 'none'}}> 
-                NEW PRODUCT
+        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" style = {{fontSize: '15px', marginLeft: '500px'}}>
+            <Link to='/customer/findProducts' style={{color: 'white', textDecoration: 'none'}}> 
+                FIND PRODUCTS
             </Link>
         </IconButton>
         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" style = {{fontSize: '15px', marginLeft: '80px'}}>
-            <Link to='/vendor/allProducts' style={{color: 'white', textDecoration: 'none'}}>                
-                ALL PRODUCTS
+            <Link to='/customer/yourOrders' style={{color: 'white', textDecoration: 'none'}}>                
+                YOUR ORDERS
             </Link>
         </IconButton>
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" style = {{fontSize: '15px', marginLeft: '80px'}}>
-            <Link to='/vendor/readyToDispatch' style={{color: 'white', textDecoration: 'none'}}>
-                READY TO DISPATCH
-            </Link>
-        </IconButton>
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" style = {{fontSize: '15px', marginLeft: '80px'}}>
-            <Link to='/vendor/dispatched' style={{color: 'white', textDecoration: 'none'}}>
-                DISPATCHED
-            </Link>
-        </IconButton>
-          <Button color="inherit" style = {{fontSize: '15px', marginLeft: '240px'}} onClick={() => this.logout()}>Logout</Button>
+          <Button color="inherit" style = {{fontSize: '15px', marginLeft: '450px'}} onClick={() => this.logout()}>Logout</Button>
         </Toolbar>
       </AppBar>
     </div>

@@ -1,13 +1,16 @@
 import React, {Component} from 'react'
 import { getJwt } from '../helpers/jwt'
 import axios from 'axios'
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
+import CustomerNavbar from './CustomerNavbar'
+import FindProducts from './FindProducts'
 
 class Customer extends Component {
     constructor() {
         super()
         this.state = {
             loading: true, 
-            emial: ''
+            email: ''
         }
     }
     componentDidMount() {
@@ -35,11 +38,35 @@ class Customer extends Component {
     render() {
         return (
             <div>
-                {this.state.loading === true ? 
-                    <p>Loading ...</p>:
-                    <p>I am a Customer</p>
-                }
+            {this.state.loading === true ? 
+            <p>Loading ...</p>:
+            <div>
+                <Router>
+                    <CustomerNavbar />
+                    <Switch>
+                        {/* <Route path = '/customer/findProducts'
+                        render={() => <NewProduct vendorEmail={this.state.email} />}
+                        /> */}
+                        <Route path = '/customer/findProducts'
+                        render={() => <FindProducts customerEmail = {this.state.email}/>}
+                        />
+                        {/* <Route path = '/customer/yourOrders'
+                        render={() => <AllProducts vendorEmail={this.state.email} />}
+                        /> */}
+                        <Route path = '/customer/yourOrders'>
+                            previous orders here
+                        </Route>
+                        {/* <Route exact path = '/vendor/'
+                            render={() => <NewProduct vendorEmail={this.state.email} />}
+                        /> */}
+                        <Route exact path = '/customer/' 
+                        render={() => <FindProducts customerEmail = {this.state.email}/>}
+                        />
+                    </Switch>
+                </Router>
             </div>
+            }
+        </div>
         )
     }
 }

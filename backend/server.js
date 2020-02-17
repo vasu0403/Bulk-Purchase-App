@@ -13,9 +13,12 @@ app.get('/', (req, res) => {
 
 let sign = require('./routes/sign')
 let vendorRoutes = require('./routes/vendorRoutes')
+let customerRoutes = require('./routes/customerRoutes')
 
 app.use('/sign', sign)
 app.use('/vendor', vendorRoutes)
+app.use('/customer', customerRoutes)
+
 
 
 app.listen(PORT, () => {
