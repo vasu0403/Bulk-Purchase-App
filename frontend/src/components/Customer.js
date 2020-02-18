@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
 import CustomerNavbar from './CustomerNavbar'
 import FindProducts from './FindProducts'
 import YourOrders from './YourOrders'
-
+import GiveReview from './GiveReview'
 class Customer extends Component {
     constructor() {
         super()
@@ -53,6 +53,9 @@ class Customer extends Component {
                         </Route> */}
                         <Route path = '/customer/yourOrders'
                         render={() => <YourOrders customerEmail = {this.state.email} />}
+                        />
+                        <Route path = '/customer/giveReview'
+                        render={() => <GiveReview customerEmail = {this.state.email} />}
                         />
                         <Route exact path = '/customer/' 
                         render={() => <FindProducts customerEmail = {this.state.email}/>}

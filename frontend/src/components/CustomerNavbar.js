@@ -36,17 +36,22 @@ class VendorNavbar extends Component{
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" style = {{fontSize: '15px', marginLeft: '500px'}}>
+        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" style = {{fontSize: '15px', marginLeft: '330px'}}>
             <Link to='/customer/findProducts' style={{color: 'white', textDecoration: 'none'}}> 
                 FIND PRODUCTS
             </Link>
         </IconButton>
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" style = {{fontSize: '15px', marginLeft: '80px'}}>
+        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" style = {{fontSize: '15px', marginLeft: '180px'}}>
             <Link to='/customer/yourOrders' style={{color: 'white', textDecoration: 'none'}}>                
                 YOUR ORDERS
             </Link>
         </IconButton>
-          <Button color="inherit" style = {{fontSize: '15px', marginLeft: '450px'}} onClick={() => this.logout()}>Logout</Button>
+        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" style = {{fontSize: '15px', marginLeft: '180px'}}>
+            <Link to='/customer/giveReview' style={{color: 'white', textDecoration: 'none'}}>                
+                GIVE REVIEWS
+            </Link>
+        </IconButton>
+          <Button color="inherit" style = {{fontSize: '15px', marginLeft: '250px'}} onClick={() => this.logout()}>Logout</Button>
         </Toolbar>
       </AppBar>
     </div>

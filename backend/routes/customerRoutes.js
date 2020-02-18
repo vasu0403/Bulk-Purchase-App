@@ -79,6 +79,7 @@ router.post('/buyProduct', (req, res) => {
         soldItem.productId = id
         soldItem.customerEmail = customerEmail
         soldItem.amount = required
+        soldItem.reviewed = false
         if(available === 0) {
             Product.findByIdAndUpdate({_id: id}, {readyToDispatch: true, available: available}, (err, docs) => {
                 if(err) {
@@ -172,4 +173,68 @@ router.post('/previousOrders', (req, res) => {
         
     })
 })
+
+router.post('/productsForReview', (req, res) => {
+    const {customerEmail} = req.body
+    SoldItem.find({
+        customerEmail: customerEmail,
+        reviewed: false
+    }, (err, items) => {
+        if(err) {
+            return res.send({
+                success: 'False',
+                message: []
+            })
+        }
+        if(items.length === 0) {
+            return res.send({
+                success: 'True',
+                message: []
+            })
+        }
+        let allItems = []
+        console.log(items.length)
+        let completed = 0
+        for(let i = 0; i < items.length; i++) {
+            let curItem = items[i]
+            console.log(curItem.productId)
+            Product.find({
+                _id: curItem.productId,
+                dispatched: true
+            }, (err, product) => {
+                if(err) {
+                    return res.send({
+                        success: 'False',
+                        message: []
+                    })
+                }
+                if(product.length != 0) {
+                    let temp = {}
+                    temp['boughtAmount'] = curItem.amount
+                    temp['ProductName'] = product[0].productName
+                    temp['vendorEmail'] = product[0].vendorEmail
+                    temp['status'] = product[0].status
+                    temp['readyToDispatch'] = product[0].readyToDispatch
+                    temp['dispatched'] = product[0].dispatched
+                    temp['productId'] = product[0]._id
+                    temp['available'] = product[0].available
+                    temp['price'] = product[0].price
+                    console.log(temp)
+                    allItems.push(temp)  
+                }
+                
+                completed++
+                if(completed === items.length) {
+                    // console.log(allItems)
+                    return res.send({
+                        success: 'True',
+                        message: allItems
+                    })
+                }
+            })    
+        }
+        
+    })
+})
+
 module.exports = router;

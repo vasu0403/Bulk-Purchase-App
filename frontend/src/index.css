@@ -4,7 +4,7 @@
   margin-left: 20%;
   margin-right: 20%;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .individual-product-container1 {
@@ -17,4 +17,39 @@
   font-size: 15px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
+}
+.individual-product-container2 {
+  background-color: white;
+  width: 1800px;
+  height: 200px;
+  margin: 10px;
+  /* text-align: center; */
+  line-height: 1.6;
+  font-size: 15px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+.flex-container2 {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 0;
+  margin-right: 20%;
+}
+.review-information {
+  margin-top: 100px;
+  margin-top: 0px;
+  padding-top: 0px;  
+  width: 250px;
+  height: 165px;
+  text-align: center;
+  margin-left: 0px;
+  background-color: #0276FD;
+  align-items: flex-start;
+  color: white;
+  line-height: 35px;
+}
+.customer-review {
+  flex: 1;
+  width: 350px;
+  padding-left: 13px;
 }

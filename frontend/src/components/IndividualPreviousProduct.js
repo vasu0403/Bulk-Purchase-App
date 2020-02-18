@@ -25,7 +25,7 @@ class IndividualPreviousProduct extends Component {
         } else {
             this.setState({
                 status: 'Dispatched',
-                color: 'green'
+                color: '#00C000'
             })
         }
     }
@@ -48,12 +48,15 @@ class IndividualPreviousProduct extends Component {
                     ITEMS REMAINING: {this.props.item.available}
                     <br/>
                     VENDOR: {this.props.item.vendorEmail}
-                    <div style = {{marginTop: '32px', bottom: '0', right: '0', textAlign: 'right', color: this.state.color}}>
+                    <div style = {{marginTop: '28px', bottom: '0', right: '0', textAlign: 'right', color: this.state.color}}>
                     {/* <br/> */}
                     status: {this.state.status}
                     {/* <input type='number' min='0' style = {{width: '120px'}} placeholder = 'Enter Quantity' onChange = {(event) => this.props.handleQuantityChange(event, this.props.item._id)}/>  */}
                     {/* {' '}<button style = {{background: 'none', padding: '0', border: 'none', color: 'white'}} onClick = {(event) => this.props.buyProduct(event, this.props.item._id, this.props.item.available)}>BUY</button> */}
                     </div>
+                    {this.state.status === 'Dispatched' ? 
+                    <p style = {{lineHeight: '10px', color: 'white'}}>Give review</p>:
+                    null}
             </div>
 
         )

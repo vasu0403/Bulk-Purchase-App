@@ -15,6 +15,11 @@ let SoldItemSchema = new mongoose.Schema({
         type: Number,
         default: 0,
         required: true
+    },
+    reviewed: {
+        type: Boolean,
+        default: false,
+        required: true
     }
 });
 
