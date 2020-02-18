@@ -4,6 +4,7 @@ import axios from 'axios'
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
 import CustomerNavbar from './CustomerNavbar'
 import FindProducts from './FindProducts'
+import YourOrders from './YourOrders'
 
 class Customer extends Component {
     constructor() {
@@ -44,21 +45,15 @@ class Customer extends Component {
                 <Router>
                     <CustomerNavbar />
                     <Switch>
-                        {/* <Route path = '/customer/findProducts'
-                        render={() => <NewProduct vendorEmail={this.state.email} />}
-                        /> */}
                         <Route path = '/customer/findProducts'
                         render={() => <FindProducts customerEmail = {this.state.email}/>}
                         />
-                        {/* <Route path = '/customer/yourOrders'
-                        render={() => <AllProducts vendorEmail={this.state.email} />}
-                        /> */}
-                        <Route path = '/customer/yourOrders'>
+                        {/* <Route path = '/customer/yourOrders'>
                             previous orders here
-                        </Route>
-                        {/* <Route exact path = '/vendor/'
-                            render={() => <NewProduct vendorEmail={this.state.email} />}
-                        /> */}
+                        </Route> */}
+                        <Route path = '/customer/yourOrders'
+                        render={() => <YourOrders customerEmail = {this.state.email} />}
+                        />
                         <Route exact path = '/customer/' 
                         render={() => <FindProducts customerEmail = {this.state.email}/>}
                         />

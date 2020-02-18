@@ -69,6 +69,7 @@ class SignIn extends Component {
             console.log(this.state)
         });
     }
+
     signIn(event) {
         event.preventDefault()
         let {email, password, typeOfUser} = this.state

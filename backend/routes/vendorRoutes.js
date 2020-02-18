@@ -158,5 +158,27 @@ router.post('/dispatchProduct', (req, res) => {
         })
     })
 })
+
+router.post('/getDispatchedProducts', (req, res) => {
+    const {vendorEmail} =req.body
+    Product.find({
+        vendorEmail: vendorEmail,
+        status: 'valid',
+        readyToDispatch: true,
+        dispatched: true
+    }, (err, products) => {
+        if(err) {
+            return res.send({
+                success: 'False',
+                message: 'server error'
+            })
+        }
+        return res.send({
+            success: 'True',
+            message: products
+        })
+    })
+})
+
 module.exports = router;
 

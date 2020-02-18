@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
 import NewProduct from './NewProduct'
 import AllProducts from './AllProducts'
 import ReadyProducts from './ReadyProducts'
+import Dispatched from './Dispatched'
 
 class Vendor extends Component {
     constructor() {
@@ -46,22 +47,18 @@ class Vendor extends Component {
                     <Router>
                         <VendorNavbar/>
                         <Switch>
-                            {/* <Route path = '/vendor/newProduct' component = {NewProduct} /> */}
                             <Route path = '/vendor/newProduct'
                             render={() => <NewProduct vendorEmail={this.state.email} />}
                             />
                             <Route path = '/vendor/allProducts'
                             render={() => <AllProducts vendorEmail={this.state.email} />}
                             />
-                            {/* <Route path = '/vendor/readyToDispatch'>
-                                ready to dispatch
-                            </Route> */}
                             <Route path = '/vendor/readyToDispatch'
                             render={() => <ReadyProducts vendorEmail={this.state.email} />}
                             />
-                            <Route path = '/vendor/dispatched'>
-                                dispatched
-                            </Route>
+                            <Route path = '/vendor/dispatched'
+                            render={() => <Dispatched vendorEmail={this.state.email} />}
+                            />
                             <Route exact path = '/vendor/'
                             render={() => <NewProduct vendorEmail={this.state.email} />}
                             />

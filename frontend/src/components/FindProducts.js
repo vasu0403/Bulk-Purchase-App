@@ -12,7 +12,9 @@ class FindProducts extends Component {
         }
         this.fetchAllProducts = this.fetchAllProducts.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.handleQuantityChange = this.handleQuantityChange.bind(this)
         this.search = this.search.bind(this)
+        this.buyProduct = this.buyProduct.bind(this)
     }
     fetchAllProducts(req) {
         this.setState({
@@ -54,6 +56,38 @@ class FindProducts extends Component {
             console.log(this.state)
         })
     }
+    handleQuantityChange(event, id) {
+        console.log(id)
+        const {value} = event.target
+        this.setState({
+            [id]: value
+        }, () => {
+            console.log(this.state)
+        })
+    }    
+    buyProduct(event, id, available) {
+        event.preventDefault()
+        const required = this.state[id]
+        const customerEmail = this.state.customerEmail
+        if(required == undefined) {
+            alert('You need to select a positive quantity of the product')
+            return
+        }
+        else if(required > available) {
+            alert('This much quantity is not available')
+            return
+        }
+        const req = {
+            id: id,
+            required: required,
+            customerEmail: customerEmail
+        }
+        axios.post('http://localhost:4000/customer/buyProduct', req)
+            .then(res => {
+                console.log(res)
+                this.fetchAllProducts({filter: 'False', name: ''})
+            })
+    }
     search() {
         const {findProduct} = this.state
         const req = {
@@ -61,9 +95,11 @@ class FindProducts extends Component {
             name: findProduct
         }
         this.fetchAllProducts(req)
+        
     }
+
     render() {
-        const allProducts = this.state.products.map(product => <IndividualCustomerProduct key = {product._id} item = {product}/>)
+        const allProducts = this.state.products.map(product => <IndividualCustomerProduct key = {product._id} item = {product} handleQuantityChange = {this.handleQuantityChange} buyProduct = {this.buyProduct}/>)
         return (
             <div>
                 {this.state.loading === true ? 

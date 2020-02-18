@@ -3,6 +3,17 @@ import React, {Component} from 'react'
 class IndividualProduct extends Component {
     constructor() {
         super()
+        this.state = {}
+        this.handleChange = this.handleChange.bind(this)
+    }
+    handleChange(event, id) {
+        console.log(id)
+        const {value} = event.target
+        this.setState({
+            [id]: value
+        }, () => {
+            console.log(this.state)
+        })
     }
     render() {
         return (
@@ -13,8 +24,9 @@ class IndividualProduct extends Component {
                     ITEMS REMAINING: {this.props.item.available}
                     <br/>
                     VENDOR: {this.props.item.vendorEmail}
-                    <div style = {{marginTop: '40px', bottom: '0', right: '0', textAlign: 'right', color: 'white'}}>
-                        <button style = {{background: 'none', padding: '0', border: 'none', color: 'white'}}>REMOVE</button>
+                    <div style = {{marginTop: '32px', bottom: '0', right: '0', textAlign: 'right', color: 'white'}}>
+                    <input type='number' min='0' style = {{width: '120px'}} placeholder = 'Enter Quantity' onChange = {(event) => this.props.handleQuantityChange(event, this.props.item._id)}/> 
+                    {' '}<button style = {{background: 'none', padding: '0', border: 'none', color: 'white'}} onClick = {(event) => this.props.buyProduct(event, this.props.item._id, this.props.item.available)}>BUY</button>
                     </div>
             </div>
 
