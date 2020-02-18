@@ -42,7 +42,7 @@ class Dispatched extends Component {
         },() => this.fetchDispatchedProducts())
     }
     render() {
-        const DispatchedProducts = this.state.products.map(product => <IndividualDispatchedProducts key = {product._id} item = {product}/>)
+        const DispatchedProducts = this.state.products.map(product => <IndividualDispatchedProducts key = {product._id} item = {product} vendorEmail = {this.state.vendorEmail}/>)
         return (
             <div>
             {this.state.loading === true ? 

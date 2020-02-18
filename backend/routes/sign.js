@@ -118,8 +118,10 @@ router.post('/register/vendor', (req, res) => {
         const vendor = new Vendor
         vendor.firstName = firstName
         vendor.lastName = lastName
-        vendor.email = email;
-        vendor.password = password;
+        vendor.email = email
+        vendor.password = password
+        vendor.rating = 3
+        vendor.noOfReviews = 1
         vendor.save((err, vendor) => {
             if(err) {
                 return res.send({

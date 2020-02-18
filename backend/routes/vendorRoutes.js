@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const router = express.Router();
 const Product = require('../models/product')
-
+const Review = require('../models/review')
 mongoose.connect('mongodb://127.0.0.1:27017/customer', { useNewUrlParser: true });
 mongoose.set('useFindAndModify', false);
 
@@ -180,5 +180,23 @@ router.post('/getDispatchedProducts', (req, res) => {
     })
 })
 
+router.post('/getDispatchedProductsReview', (req, res) => {
+    const {vendorEmail, productId} = req.body
+    Review.find({
+        vendorEmail: vendorEmail,
+        productId: productId
+    }, (err, reviews) => {
+        if(err) {
+            return res.send({
+                success: 'False',
+                message: 'server error'
+            })
+        }
+        return res.send({
+            success: 'True',
+            message: reviews
+        })
+    })
+})
 module.exports = router;
 

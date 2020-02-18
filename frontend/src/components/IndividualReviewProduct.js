@@ -4,19 +4,9 @@ class IndividualReviewProduct extends Component {
     constructor() {
         super()
         this.state = {}
-        this.handleChange = this.handleChange.bind(this)
     }
     componentDidMount() {
         
-    }
-    handleChange(event, id) {
-        console.log(id)
-        const {value} = event.target
-        this.setState({
-            [id]: value
-        }, () => {
-            console.log(this.state)
-        })
     }
     render() {
         
@@ -32,13 +22,11 @@ class IndividualReviewProduct extends Component {
                         VENDOR: {this.props.item.vendorEmail}
                     </div>
                     <div className = 'customer-review'>
-                        <textarea placeholder = 'Enter review' style = {{width: '550px', height: '120px', resize: 'none'}}/>
-                        <input type = 'number' placeholder = 'Give rating' min = '0' max = '5' style = {{width: '100px'}}/>
-                        {/* <button style = {{marginLeft: '10px', backgroundColor: '#0276FD'}}>Submit review</button> */}
-                        <button type="button" class="btn btn-primary btn-sm" style = {{marginLeft: '10px'}}>Submit Review</button>
+                        <textarea placeholder = 'Enter review' style = {{width: '550px', height: '120px', resize: 'none'}} onChange = {(event) => this.props.handleReviewChange(event, this.props.item.itemNo)}/>
+                        <input type = 'number' placeholder = 'Give rating' min = '0' max = '5' style = {{width: '100px'}} onChange = {(event) => this.props.handleReviewChange(event, this.props.item.itemNo)}/>
+                        <button type="button" className="btn btn-primary btn-sm" style = {{marginLeft: '10px'}} onClick = {(event) => this.props.submitReview(event, this.props.item.itemNo, this.props.item.productId, this.props.item.ProductName, this.props.item.vendorEmail, this.props.item.soldItemId)}>Submit Review</button>
                     </div>
                 </div>
-                    
             </div>
 
         )

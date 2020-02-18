@@ -1,36 +1,31 @@
 const mongoose = require('mongoose')
 
-let VendorSchema = new mongoose.Schema({
-    firstName: {
+let ReviewSchema = new mongoose.Schema({
+    productName: {
         type: String,
         default: '',
         required: true
     },
-    lastName: {
+    productId: {
         type: String,
         default: '',
         required: true
     },
-    email: {
+    vendorEmail: {
         type: String,
         default: '',
         required: true
     },
-    password: {
+    customerEmail: {
         type: String,
         default: '',
         required: true
     },
-    rating: {
-        type: Number,
-        default: 3,
-        required: true,
-    },
-    noOfReviews: {
-        type: Number,
-        default: 1,
+    review: {
+        type: String,
+        default: '',
         required: true
     }
 })
 
-module.exports = mongoose.model('Vendor', VendorSchema)
+module.exports = mongoose.model('Review', ReviewSchema)

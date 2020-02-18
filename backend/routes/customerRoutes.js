@@ -1,10 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
-var async = require('async');
 
 const router = express.Router();
 const Product = require('../models/product')
 const SoldItem = require('../models/soldItem')
+const Review = require('../models/review')
+const Vendor = require('../models/vendor')
+
 
 mongoose.connect('mongodb://127.0.0.1:27017/customer', { useNewUrlParser: true });
 mongoose.set('useFindAndModify', false);
@@ -23,10 +25,48 @@ router.post('/fetchAllProducts', (req, res) => {
                     message: []
                 })
             }
-            return res.send({
-                success: 'True',
-                message: products
-            })
+            let allItems = []
+            let completed = 0
+            if(products.length == 0) {
+                return res.send({
+                    success: "True",
+                    message: []
+                })
+            }
+            for(var i = 0; i < products.length; i++) {
+                let curProduct = products[i]
+                let vendorEmail = curProduct.vendorEmail
+                Vendor.find({
+                    email: vendorEmail
+                }, (err, vendor) => {
+                    if(err) {
+                        return res.send({
+                            success: 'False',
+                            message: []
+                        })
+                    }
+                    let temp = {}
+                    temp._id = curProduct._id
+                    temp.productName = curProduct.productName
+                    temp.vendorEmail = curProduct.vendorEmail
+                    temp.status = curProduct.status
+                    temp.price = curProduct.price
+                    temp.total = curProduct.total
+                    temp.available = curProduct.available
+                    temp.readyToDispatch = curProduct.readyToDispatch
+                    temp.dispatched = curProduct.dispatched
+                    temp.vendorRating = vendor[0].rating
+                    allItems.push(temp)
+                    completed++
+                    if(completed == products.length) {
+                        return res.send({
+                            success: 'True',
+                            message: allItems
+                        })
+                    }
+
+                })
+            }
         })
     } else if(filter == 'True') {
         Product.find({
@@ -41,10 +81,48 @@ router.post('/fetchAllProducts', (req, res) => {
                     message: []
                 })
             }
-            return res.send({
-                success: 'True',
-                message: products
-            })
+            if(products.length == 0) {
+                return res.send({
+                    success: "True",
+                    message: []
+                })
+            }
+            let allItems = []
+            let completed = 0
+            for(var i = 0; i < products.length; i++) {
+                let curProduct = products[i]
+                let vendorEmail = curProduct.vendorEmail
+                Vendor.find({
+                    email: vendorEmail
+                }, (err, vendor) => {
+                    if(err) {
+                        return res.send({
+                            success: 'False',
+                            message: []
+                        })
+                    }
+                    let temp = {}
+                    temp._id = curProduct._id
+                    temp.productName = curProduct.productName
+                    temp.vendorEmail = curProduct.vendorEmail
+                    temp.status = curProduct.status
+                    temp.price = curProduct.price
+                    temp.total = curProduct.total
+                    temp.available = curProduct.available
+                    temp.readyToDispatch = curProduct.readyToDispatch
+                    temp.dispatched = curProduct.dispatched
+                    temp.vendorRating = vendor[0].rating
+                    allItems.push(temp)
+                    completed++
+                    if(completed == products.length) {
+                        return res.send({
+                            success: 'True',
+                            message: allItems
+                        })
+                    }
+
+                })
+            }
         })
     } else {
         return res.send({
@@ -112,10 +190,6 @@ router.post('/buyProduct', (req, res) => {
     })
     
 });
-// let allItems = []
-// function findProduct(allItems) {
-
-// }
 router.post('/previousOrders', (req, res) => {
     const {customerEmail} = req.body
     SoldItem.find({
@@ -219,6 +293,8 @@ router.post('/productsForReview', (req, res) => {
                     temp['productId'] = product[0]._id
                     temp['available'] = product[0].available
                     temp['price'] = product[0].price
+                    temp['itemNo'] = completed
+                    temp['soldItemId'] = curItem._id
                     console.log(temp)
                     allItems.push(temp)  
                 }
@@ -237,4 +313,33 @@ router.post('/productsForReview', (req, res) => {
     })
 })
 
+router.post('/postReview', (req, res) => {
+    const {productName, productId, vendorEmail, customerEmail, review, rating, soldItemId} = req.body
+    const new_review = new Review
+    new_review.productName = productName
+    new_review.productId = productId
+    new_review.vendorEmail = vendorEmail
+    new_review.customerEmail = customerEmail
+    new_review.review = review
+    new_review.save((err, new_review) => {
+        if(err) {
+            return res.send({
+                success: 'False',
+                message: 'Server error'
+            })
+        }
+        SoldItem.findOneAndUpdate({_id: soldItemId}, {reviewed: true}, (err, docs) => {
+            if(err) {
+                return res.send({
+                    success: 'False',
+                    message: 'Server errod'
+                })
+            }
+            return res.send({
+                success: 'True',
+                message: 'Review Added successfully'
+            })
+        });
+    })
+});
 module.exports = router;

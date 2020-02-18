@@ -8,7 +8,8 @@ class FindProducts extends Component {
             customerEmail: '',
             products: [],
             loading: true,
-            findProduct: ''
+            findProduct: '',
+            sortBy: ''
         }
         this.fetchAllProducts = this.fetchAllProducts.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -24,7 +25,8 @@ class FindProducts extends Component {
             .then(res => {
                 this.setState({
                     products: res.data.message,
-                    loading: false
+                    loading: false,
+                    sortBy: 'Sort By'
                 }, () => {
                     console.log(this.state)
                 });
@@ -33,7 +35,8 @@ class FindProducts extends Component {
                 console.log(err)
                 this.setState({
                     products: [],
-                    loading: false
+                    loading: false,
+                    sortBy: 'Sort By'
                 })
             })
     }
@@ -49,12 +52,36 @@ class FindProducts extends Component {
         
     }
     handleChange(event) {
-        const {name, value} = event.target;
+        const {name, value, type} = event.target;
         this.setState({
             [name]: value
         }, () => {
             console.log(this.state)
-        })
+
+            if(type == 'select-one') {
+                if(value === 'Sort By') {
+                    return
+                }
+                if(value === 'Price') {
+                    console.log('come here')
+                    let products = this.state.products
+                    products.sort(function(a, b) {return a.price - b.price})
+                    this.setState({
+                        products: products
+                    })
+                    return
+                }
+                if(value === 'Quantity Left') {
+                    console.log('inside')
+                    let products = this.state.products
+                    products.sort(function(a, b) {return a.available - b.available})
+                    this.setState({
+                        products: products
+                    })
+                    return
+                }
+            }
+        }) 
     }
     handleQuantityChange(event, id) {
         console.log(id)
@@ -115,6 +142,7 @@ class FindProducts extends Component {
                                 name='findProduct' 
                                 onChange = {this.handleChange}
                             />
+                            <br/>
                             <span className="input-group-btn">
                                 <button 
                                     className="btn btn-default" 
@@ -130,8 +158,15 @@ class FindProducts extends Component {
                                 >
                                         ALL PRODUCTS
                                 </button>
-                            </span>
+                                <select name = 'sortBy' value = {this.state.sortBy} className="custom-select mr-sm-2" id="inlineFormCustomSelect" style = {{width: '200px'}} onChange = {this.handleChange}>
+                                    <option selected value = 'Sort By'>Sort By</option>
+                                    <option value="Price">Price</option>
+                                    <option value="Quantity Left">Quantity Left</option>
+                                    <option value="Rating">Rating</option>
+                                </select>
+                            </span>     
                         </div>
+                        
                         <div className = 'container-fluid fill' style = {{marginTop: '60px'}}>
                             <div className ="flex-container">
                                 {allProducts}

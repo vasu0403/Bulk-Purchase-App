@@ -54,9 +54,6 @@ class IndividualPreviousProduct extends Component {
                     {/* <input type='number' min='0' style = {{width: '120px'}} placeholder = 'Enter Quantity' onChange = {(event) => this.props.handleQuantityChange(event, this.props.item._id)}/>  */}
                     {/* {' '}<button style = {{background: 'none', padding: '0', border: 'none', color: 'white'}} onClick = {(event) => this.props.buyProduct(event, this.props.item._id, this.props.item.available)}>BUY</button> */}
                     </div>
-                    {this.state.status === 'Dispatched' ? 
-                    <p style = {{lineHeight: '10px', color: 'white'}}>Give review</p>:
-                    null}
             </div>
 
         )
