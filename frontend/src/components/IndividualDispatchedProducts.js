@@ -23,7 +23,7 @@ class IndividualDispatchedProducts extends Component {
                         reviews: res.data.message,
                         loading: true
                     }, () => {
-                        let allReviews = this.state.reviews.map(review => <li>{review.customerEmail}: {review.review}</li>)
+                    let allReviews = this.state.reviews.map(review => <li>{review.customerEmail}: {review.review}<br/>rating: {review.rating}</li>)
                         this.setState({
                             allReviews: allReviews,
                             loading: false
@@ -38,7 +38,7 @@ class IndividualDispatchedProducts extends Component {
                 })
         })
     }
-    render() {
+    render() {  
         return (
             <div className = 'individual-product-container2 shadow-lg p-3 mb-5  rounded'>
             {this.state.loading == true ?

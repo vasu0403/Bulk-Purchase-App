@@ -45,17 +45,21 @@ class IndividualPreviousProduct extends Component {
                     <h3>{this.props.item.ProductName}</h3>
                     PRICE: {this.props.item.price}
                     <br/>
+                    AMOUNT PURCHASED: {this.props.item.boughtAmount}
+                    <br/>
                     ITEMS REMAINING: {this.props.item.available}
                     <br/>
                     VENDOR: {this.props.item.vendorEmail}
-                    <div style = {{marginTop: '28px', bottom: '0', right: '0', textAlign: 'right', color: this.state.color}}>
+                    <div style = {{marginTop: '22px', bottom: '0', right: '0', textAlign: 'right', color: this.state.color}}>
                     {/* <br/> */}
                     status: {this.state.status}
-                    {/* <input type='number' min='0' style = {{width: '120px'}} placeholder = 'Enter Quantity' onChange = {(event) => this.props.handleQuantityChange(event, this.props.item._id)}/>  */}
-                    {/* {' '}<button style = {{background: 'none', padding: '0', border: 'none', color: 'white'}} onClick = {(event) => this.props.buyProduct(event, this.props.item._id, this.props.item.available)}>BUY</button> */}
+                    {this.state.status == 'Waiting' ?
+                    <div><input type='number' min='0' style = {{width: '120px'}} placeholder = 'Change Quantity' onChange = {(event) => this.props.handleQuantityChange(event, this.props.item.productId)}/> <button style = {{background: 'none', padding: '0', border: 'none', color: 'white'}} onClick = {(event) => this.props.changeOrder(event, this.props.item.productId, this.props.item.available, this.props.item.boughtAmount, this.props.item.soldItemId)}>CHANGE</button></div>:
+                    null
+                    }
                     </div>
             </div>
-
+ 
         )
     }
 }

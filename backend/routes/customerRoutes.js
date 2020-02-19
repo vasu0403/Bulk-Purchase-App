@@ -232,6 +232,7 @@ router.post('/previousOrders', (req, res) => {
                 temp['productId'] = product[0]._id
                 temp['available'] = product[0].available
                 temp['price'] = product[0].price
+                temp['soldItemId'] = curItem._id
                 console.log(temp)
                 completed++
                 allItems.push(temp)  
@@ -321,6 +322,7 @@ router.post('/postReview', (req, res) => {
     new_review.vendorEmail = vendorEmail
     new_review.customerEmail = customerEmail
     new_review.review = review
+    new_review.rating = rating
     new_review.save((err, new_review) => {
         if(err) {
             return res.send({
@@ -341,5 +343,72 @@ router.post('/postReview', (req, res) => {
             })
         });
     })
+});
+router.post('/changeOrder', (req, res) => {
+    const {productId, soldItemId, required, previousAmount, customerEmail} = req.body
+    Product.find({
+        _id: productId
+    }, (err, products) => {
+        if(err) {
+            return res.send({
+                success: 'False',
+                message: 'server error'
+            });
+        }
+        available = products[0].available
+        available = available + previousAmount
+        if(required > available) {
+            return res.send({
+                success: 'False',
+                message: 'This much quantity is not available'
+            })
+        }
+        available = available - required
+        if(available == 0) {
+            Product.findByIdAndUpdate({_id: productId}, {readyToDispatch: true, available: available}, (err, docs) => {
+                if(err) {
+                    return res.send({
+                        success: 'False',
+                        message: 'server error'
+                    })
+                }
+                console.log(soldItemId, 'herer')
+                SoldItem.findByIdAndUpdate({_id: soldItemId}, {amount: required}, (err, docs) => {
+                    if(err) {
+                        return res.send({
+                            success: 'False',
+                            message: 'server error'
+                        })
+                    }
+                    return res.send({
+                        success: 'True',
+                        message: 'Succesful'
+                    })
+                })
+            })
+        } else {
+            Product.findByIdAndUpdate({_id: productId}, {available: available}, (err, docs) => {
+                if(err) {
+                    return res.send({
+                        success: 'False',
+                        message: 'server error'
+                    })
+                }
+                console.log(soldItemId, 'hererere')
+                SoldItem.findByIdAndUpdate({_id: soldItemId}, {amount: required}, (err, docs) => {
+                    if(err) {
+                        return res.send({
+                            success: 'False',
+                            message: 'server error'
+                        })
+                    }
+                    return res.send({
+                        success: 'True',
+                        message: 'Succesful'
+                    })
+                })
+            })
+        }
+    });
 });
 module.exports = router;

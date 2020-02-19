@@ -25,7 +25,12 @@ let ReviewSchema = new mongoose.Schema({
         type: String,
         default: '',
         required: true
-    }
+    },
+    rating: {
+        type: Number,
+        default: 0,
+        required: true
+    } 
 })
 
 module.exports = mongoose.model('Review', ReviewSchema)
