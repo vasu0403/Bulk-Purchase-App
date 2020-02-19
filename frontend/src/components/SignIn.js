@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios'
+import { getJwt } from '../helpers/jwt'
 
 const styles = theme => ({
 
@@ -54,6 +55,22 @@ class SignIn extends Component {
         this.signIn = this.signIn.bind(this)
     }
     componentDidMount() {
+        const jwt = getJwt()
+        if(!jwt) {
+            this.props.history.push('/sign')
+        }
+        console.log(jwt)
+        axios.get('http://localhost:4000/sign/authenticate', { headers: {authorization: `Bearer ${jwt}`}}).then(res => {
+            const {data} = res  
+            if(data.success === 'False') {
+                this.props.history.push('/sign')
+            } else if(data.typeOfUser === 'vendor') {
+                this.props.history.push('/vendor')
+            } else {
+                this.props.history.push('/customer')
+            }
+
+        })
         this.setState({
             'email': '',
             'password': '',

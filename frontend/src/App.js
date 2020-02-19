@@ -5,7 +5,7 @@ import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
 import Customer from './components/Customer'
 import Vendor from './components/Vendor'
-
+import Authenticate from './components/Authenticate'
 class App extends Component {
   constructor() {
     super()
@@ -50,6 +50,7 @@ class App extends Component {
             </div>
           </Route> 
         </switch> */}
+        <Route path = '/' component = {Authenticate} />
         <Route path = "/sign">
           <div className = 'outerGrid'>
             <div className = 'sideNav'>
