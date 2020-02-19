@@ -45,15 +45,15 @@ class Dispatched extends Component {
         const DispatchedProducts = this.state.products.map(product => <IndividualDispatchedProducts key = {product._id} item = {product} vendorEmail = {this.state.vendorEmail}/>)
         return (
             <div>
-            {this.state.loading === true ? 
-            <p>Loading ...</p>:
-            <div className = 'container-fluid fill' style = {{marginTop: '60px'}}>
-                <div className ="flex-container">
-                    {DispatchedProducts}
+                {this.state.loading === true ? 
+                <p>Loading ...</p>:
+                <div className = 'container-fluid fill' style = {{marginTop: '60px'}}>
+                    <div className ="flex-container">
+                        {DispatchedProducts}
+                    </div>
                 </div>
+                }
             </div>
-            }
-        </div>
         )
     }
 }

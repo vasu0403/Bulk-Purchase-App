@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
 
 class IndividualProduct extends Component {
     constructor() {
@@ -13,7 +14,7 @@ class IndividualProduct extends Component {
                     <br/>
                     ITEMS REMAINING: {this.props.item.available}
                     <br/>
-                    VENDOR: {this.props.item.vendorEmail}
+                    <Link to={`/customer/vendorReview/${this.props.item.vendorEmail}`} params = {{email: this.props.vendorEmail}} style={{color: 'white', textDecoration: 'none'}}>VENDOR: {this.props.item.vendorEmail}</Link>
                     <br />
                     VENDOR RATING: {this.props.item.vendorRating}
                     <div style = {{marginTop: '20px', bottom: '0', right: '0', textAlign: 'right', color: 'white'}}>

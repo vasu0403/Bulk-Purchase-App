@@ -6,6 +6,7 @@ import CustomerNavbar from './CustomerNavbar'
 import FindProducts from './FindProducts'
 import YourOrders from './YourOrders'
 import GiveReview from './GiveReview'
+import VendorReviews from './VendorReviews'
 class Customer extends Component {
     constructor() {
         super()
@@ -56,6 +57,9 @@ class Customer extends Component {
                         />
                         <Route path = '/customer/giveReview'
                         render={() => <GiveReview customerEmail = {this.state.email} />}
+                        />
+                        <Route path = '/customer/vendorReview/:id'
+                        component = {VendorReviews}
                         />
                         <Route exact path = '/customer/' 
                         render={() => <FindProducts customerEmail = {this.state.email}/>}

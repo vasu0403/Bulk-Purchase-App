@@ -411,4 +411,22 @@ router.post('/changeOrder', (req, res) => {
         }
     });
 });
+
+router.post('/vendorReviews', (req, res) => {
+    const {vendorEmail} = req.body
+    Review.find({
+        vendorEmail: vendorEmail
+    }, (err, reviews) => {
+        if(err) {
+            return res.send({
+                success: 'False',
+                message: 'server error'
+            })
+        }
+        return res.send({
+            success: 'True',
+            message: reviews
+        })
+    })
+})
 module.exports = router;
