@@ -315,7 +315,8 @@ router.post('/productsForReview', (req, res) => {
 })
 
 router.post('/postReview', (req, res) => {
-    const {productName, productId, vendorEmail, customerEmail, review, rating, soldItemId} = req.body
+    let {productName, productId, vendorEmail, customerEmail, review, rating, soldItemId} = req.body
+    rating = parseInt(rating)
     const new_review = new Review
     new_review.productName = productName
     new_review.productId = productId
@@ -334,12 +335,34 @@ router.post('/postReview', (req, res) => {
             if(err) {
                 return res.send({
                     success: 'False',
-                    message: 'Server errod'
+                    message: 'Server error'
                 })
             }
-            return res.send({
-                success: 'True',
-                message: 'Review Added successfully'
+            Vendor.find({
+                email: vendorEmail
+            }, (err, vendors) => {
+                if(err) {
+                    return res.send({
+                        success: 'False',
+                        message: 'Server error'
+                    })
+                }
+                let pre_rating = vendors[0].rating
+                let pre_reviews = vendors[0].noOfReviews
+                let new_rating = (pre_rating*pre_reviews + rating) / (pre_reviews + 1)
+                console.log(pre_rating, pre_reviews, rating, new_rating, 'PLEASE')
+                Vendor.findOneAndUpdate({email: vendorEmail}, {rating: new_rating, noOfReviews: pre_reviews + 1}, (err, docs) => {
+                    if(err) {
+                        return res.send({
+                            success: 'False',
+                            message: 'Server error'
+                        })
+                    }
+                    return res.send({
+                        success: 'True',
+                        message: 'Review Added successfully'
+                    })
+                })
             })
         });
     })
