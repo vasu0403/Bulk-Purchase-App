@@ -50,7 +50,7 @@ class App extends Component {
             </div>
           </Route> 
         </switch> */}
-        <Route path = '/' component = {Authenticate} />
+        <Route exact path = '/' component = {Authenticate} />
         <Route path = "/sign">
           <div className = 'outerGrid'>
             <div className = 'sideNav'>

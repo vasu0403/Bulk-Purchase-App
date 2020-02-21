@@ -72,13 +72,13 @@ class SignUp extends Component {
     componentDidMount() {
         const jwt = getJwt()
         if(!jwt) {
-            this.props.history.push('/sign')
+            this.props.history.push('/sign/signUp')
         }
         console.log(jwt)
         axios.get('http://localhost:4000/sign/authenticate', { headers: {authorization: `Bearer ${jwt}`}}).then(res => {
             const {data} = res  
             if(data.success === 'False') {
-                this.props.history.push('/sign')
+                this.props.history.push('/sign/signUp')
             } else if(data.typeOfUser === 'vendor') {
                 this.props.history.push('/vendor')
             } else {
