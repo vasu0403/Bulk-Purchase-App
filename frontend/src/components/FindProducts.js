@@ -63,7 +63,6 @@ class FindProducts extends Component {
                     return
                 }
                 if(value === 'Price') {
-                    console.log('come here')
                     let products = this.state.products
                     products.sort(function(a, b) {return a.price - b.price})
                     this.setState({
@@ -72,9 +71,17 @@ class FindProducts extends Component {
                     return
                 }
                 if(value === 'Quantity Left') {
-                    console.log('inside')
                     let products = this.state.products
                     products.sort(function(a, b) {return a.available - b.available})
+                    this.setState({
+                        products: products
+                    })
+                    return
+                }
+                if(value === 'Rating') {
+                    let products = this.state.products
+                    console.log(products)
+                    products.sort(function(a, b) {return a.vendorRating - b.vendorRating})
                     this.setState({
                         products: products
                     })
